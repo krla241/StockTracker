@@ -1,9 +1,16 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+from rest_framework import routers
+from .views import StockViewSet
+from .views import StockNameViewSet
+
+router = routers.DefaultRouter()
+router.register('sets', StockViewSet)
+router.register('allnames', StockNameViewSet)
 
 urlpatterns = [
-    # path('', views.homePageView, name='home')
-    # path('', views.HomePageView.as_view(), name='home'),
-    # path('', views.index, name='index'),
-    path('', views.StockList.as_view()),
+
+    path('stocks', views.StockList.as_view()),
+    path('database', views.StockData.as_view()),
+    path('api', include(router.urls))
 ]
